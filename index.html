@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Kanye West Password Generator</title>
+  <link rel ="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1> This website will generate a password based on a Kanye West Quote</h1>
+  <div id = "button">
+  <button type="button"  onclick="generate()" name="button"> Click for a Random Password</button>
+</div>
+  <script>
+    function generate(){
+    const url ="https://api.kanye.rest";
+    let quote = "";
+    var array = ['$', '1', '#', '2', '3', '4', '5', '*', '^', '*', '@', '6', '7', '8','9', '10'];
+    fetch(url)
+        .then(function(response) {
+          return response.json();
+        }).then(function(json) {
+          quote = json.quote.toString();
+          function randomElement(){
+            let string = array[Math.floor(Math.random() * array.length)]
+            return string;
+          };
+          //Had to take out some bad words in some of the quotes
+          quote= quote.replace(/fuck/g, "f***");
+          quote = quote.replace(/fucking/g, "f***ing")
+          quote = quote.replace(/shit/g, "s***")
+
+		document.getElementById("Quote").innerHTML = "<h4>Original Quote:</h4> <p>" +quote + "</p>";
+          quote = quote.replace(/ /g, randomElement);
+		document.getElementById("Password").innerHTML = "<h4>Password:</h4> <p>" + quote + "</p>";
+          ;})
+    }
+    </script>
+    <div class ="container">
+    <div id="Quote"> </div>
+    <div id="Password"> </div>
+    <div id = "image"> <img src="https://thumbor.forbes.com/thumbor/fit-in/416x416/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5ed00f17d4a99d0006d2e738%2F0x0.jpg%3Fbackground%3D000000%26cropX1%3D154%26cropX2%3D4820%26cropY1%3D651%26cropY2%3D5314" alt=""></div>
+    </div>
+    <footer>
+<p> Github: <a href="https://github.com/zjrb">link </a>
+</footer>
+</body>
+</html>
